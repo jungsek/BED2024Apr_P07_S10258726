@@ -1,5 +1,7 @@
 //1. Import Express: Add the following line at the top of your app.js file.
 const express = require('express');
+const bodyParser = require('body-parser');
+
 //2. Instantiate the Express app: Create an instance of the Express app using express().
 const app = express();
 //3. Define the Port: Specify the port on which your server will listen for requests.
@@ -71,3 +73,25 @@ app.put('/books/:id', (req, res) => {
   }
 });
 
+//4. Route for Deleting a Book (DELETE /books/:id):**
+app.delete('/books/:id', (req, res) => {
+  const bookId = parseInt(req.params.id); // Get book ID from URL parameter
+
+  const bookIndex = books.findIndex(book => book.id === bookId);
+
+  if (bookIndex !== -1) {
+    books.splice(bookIndex, 1); // Remove book from the array
+    res.status(204).send(); // Send empty response with status code 204 (No Content)
+  } else {
+    res.status(404).send('Book not found'); // Send error for non-existent book
+  }
+});
+
+
+// Part 4: Starting the Server (10 mins)
+
+//1. Start the server:** In your app.js file, add the following code to start the server.
+
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+});
