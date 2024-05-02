@@ -1,6 +1,6 @@
 const books = [
     {id: 1, title: "The Lord Of The Rings", author: "J.R.R Tolkien"}, 
-    { id: 2, title: "Pride and Prejudice", author: "Jane Austen" },
+    {id: 2, title: "Pride and Prejudice", author: "Jane Austen" },
 ];
 
 class Book {

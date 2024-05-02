@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const booksController = require("./controllers/booksController");
+const booksController = require("./controllers/booksControllers");
 const validateBook = require('./middlewares/validatebook');
 const app = express();
 
