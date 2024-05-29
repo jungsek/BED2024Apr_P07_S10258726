@@ -4,19 +4,28 @@ const sql = require("mssql"); // Assuming you've installed mssql
 const dbConfig = require("./dbConfig");
 const bodyParser = require("body-parser");
 const validateBook = require("./middlewares/validateBook");
-
-
+const usersController = require('./controllers/usersController');
+const staticMiddleware = express.static("public"); // Path to the public folder
 const app = express();
 const port = process.env.PORT || 3000; // Use environment variable or default port
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(staticMiddleware); // Mount the static middleware
 
 app.get("/books", booksController.getAllBooks);
 app.get("/books/:id", booksController.getBookById);
 app.post("/books", validateBook, booksController.createBook); // POST for creating books (can handle JSON data)
 app.put("/books/:id", validateBook, booksController.updateBook);
 app.delete("/books/:id", booksController.deleteBook); // DELETE for deleting books
+// Define routes for user functionalities
+app.post('/users', usersController.createUser); // Create user
+app.get('/users', usersController.getAllUsers); // Get all users
+app.get('/users/:id', usersController.getUserById); // Get user by ID
+app.put('/users/:id', usersController.updateUser); // Update user
+app.delete('/users/:id', usersController.deleteUser); // Delete user
+app.get("/users/search", usersController.searchUsers);
+app.get("/users/with-books", usersController.getUsersWithBooks);
 
 app.listen(port, async () => {
   try {
